@@ -6,10 +6,10 @@ package poly.cafe.polycafe.util;
 
 import java.awt.List;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.jar.Attributes.Name;
 import poly.cafe.polycafe.entity.Category;
 import poly.cafe.util.XJdbc;
+
+
 
 /**
  *
@@ -22,14 +22,22 @@ public class Test {
         XJdbc.executeUpdate(sql, "C02", "Loại 2");
         
         // Truy vấn nhiều bản ghi (ResultSet)
-         String selectSql1 = "SELECT * FROM Categories WHERE Name LIKE ?";
-            ResultSet rs = XJdbc.executeQuery(selectSql1, "%Loại%");
+         String sql = "SELECT * FROM Categories WHERE Name LIKE ?";
+            ResultSet rs = XJdbc.executeQuery(sql, "%Loại%");
             while (rs.next()) {
                 System.out.println("Id: " + rs.getString("Id") + ", Name: " + rs.getString("Name"));
             }
             
-//        //Truy xuất nhiều bản ghi và chuyển đổi sang List<Bean>
-//        String selectSql2 = "SELECT * FROM Categories WHERE Name LIKE ?";
-//        List<Category> beans = XJdbc.getBeanList(Category.class, selectSql2, "%Loại%");
+        //Truy xuất nhiều bản ghi và chuyển đổi sang List<Bean>
+        String sql = "SELECT * FROM Categories WHERE Name LIKE ?";
+        List<Category> beans = XJdbc.getBeanList(Category.class, sql, "%Loại%");
+        
+        //Truy xuất một bản ghi và chuyển đổi sang Bean
+        String sql = "SELECT * FROM Categories WHERE Id=?";
+        Category bean = XJdbc.getSingleBean(Category.class, sql, "C02");
+        
+        //Truy vấn 1 giá trị
+        String sql = "SELECT max(Id) FROM Categories WHERE Name LIKE ?";
+        String id = XJdbc.getValue(sql, "%Loại%");
     }
 }

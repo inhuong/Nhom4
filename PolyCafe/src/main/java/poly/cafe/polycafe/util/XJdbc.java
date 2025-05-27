@@ -1,4 +1,4 @@
-package poly.cafe.util;
+package poly.cafe.polycafe.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,16 +6,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ * Lớp tiện ích hỗ trợ làm việc với CSDL quan hệ
+ *
+ * @author NghiemN
+ * @version 1.0
+ */
 public class XJdbc {
 
     private static Connection connection;
 
+    /**
+     * Mở kết nối nếu chưa mở hoặc đã đóng
+     *
+     * @return Kết nối đã sẵn sàng
+     */
     public static Connection openConnection() {
         var driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         var dburl = "jdbc:sqlserver://WebStore.mssql.somee.com;database=WebStore;encrypt=true;trustServerCertificate=true;";
-        var username = "sa";
-        var password = "123";
+        var username = "songlong_SQLLogin_1";
+        var password = "p5xhkkw67t";
         try {
             if (!XJdbc.isReady()) {
                 Class.forName(driver);
@@ -27,6 +37,9 @@ public class XJdbc {
         return connection;
     }
 
+    /**
+     * Đóng kết nối
+     */
     public static void closeConnection() {
         try {
             if (XJdbc.isReady()) {
@@ -37,7 +50,10 @@ public class XJdbc {
         }
     }
 
-
+    /**
+     * Kiểm tra kết nối đã sẵn sàng hay chưa
+     * @return true nếu kết nối đã được mở
+     */
     public static boolean isReady() {
         try {
             return (connection != null && !connection.isClosed());
@@ -46,7 +62,14 @@ public class XJdbc {
         }
     }
 
-
+    /**
+     * Thao tác dữ liệu
+     *
+     * @param sql câu lệnh SQL (INSERT, UPDATE, DELETE)
+     * @param values các giá trị cung cấp cho các tham số trong SQL
+     * @return số lượng bản ghi đã thực hiện
+     * @throws RuntimeException không thực thi được câu lệnh SQL
+     */
     public static int executeUpdate(String sql, Object... values) {
         try {
             var stmt = XJdbc.getStmt(sql, values);
@@ -56,7 +79,14 @@ public class XJdbc {
         }
     }
 
-
+    /**
+     * Truy vấn dữ liệu
+     *
+     * @param sql câu lệnh SQL (SELECT)
+     * @param values các giá trị cung cấp cho các tham số trong SQL
+     * @return tập kết quả truy vấn
+     * @throws RuntimeException không thực thi được câu lệnh SQL
+     */
     public static ResultSet executeQuery(String sql, Object... values) {
         try {
             var stmt = XJdbc.getStmt(sql, values);
