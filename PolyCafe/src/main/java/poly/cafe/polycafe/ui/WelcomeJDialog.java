@@ -1,14 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package poly.cafe.polycafe.ui;
 
-/**
- *
- * @author Admin
- */
-public class WelcomeJDialog extends javax.swing.JDialog {
+
+public class WelcomeJDialog extends javax.swing.JDialog  implements WelcomeController{
 
     /**
      * Creates new form WelcomeJDialog
@@ -32,12 +26,20 @@ public class WelcomeJDialog extends javax.swing.JDialog {
         progressBar = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 51, 0));
         jLabel1.setText("POLY CAFE");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poly/cafe/polycafe/icons/trump-small.png"))); // NOI18N
+
+        progressBar.setToolTipText("");
+        progressBar.setStringPainted(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,6 +72,11 @@ public class WelcomeJDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        this.waiting();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -113,7 +120,8 @@ public class WelcomeJDialog extends javax.swing.JDialog {
         });
     }
 
-public void waiting() {
+    @Override
+    public void waiting() {
     this.setLocationRelativeTo(null);
 
     new Thread(() -> {
@@ -134,8 +142,8 @@ public void waiting() {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
-private void formWindowOpened(java.awt.event.WindowEvent evt) {
- // TODO add your handling code here:
- this.waiting(); // thực hiện sau khi cửa sổ đã được mở
- }
+//private void formWindowOpened(java.awt.event.WindowEvent evt) {
+// // TODO add your handling code here:
+//  // thực hiện sau khi cửa sổ đã được mở
+// }
 }
