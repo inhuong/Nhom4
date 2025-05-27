@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package poly.cafe.polycafe.ui;
 
-import poly.cafe.util.XIcon;
+import poly.cafe.polycafe.util.XIcon;
 
 /**
  *

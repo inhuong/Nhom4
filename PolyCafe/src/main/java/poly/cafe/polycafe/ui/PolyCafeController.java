@@ -12,7 +12,7 @@ import poly.cafe.polycafe.ui.manager.CategoryManagerJDialog;
 import poly.cafe.polycafe.ui.manager.DrinkManagerJDialog;
 import poly.cafe.polycafe.ui.manager.RevenueManagerJDialog;
 import poly.cafe.polycafe.ui.manager.UserManagerJDialog;
-import poly.cafe.util.XDialog;
+import poly.cafe.polycafe.util.XDialog;
 
 /**
  *

@@ -4,7 +4,7 @@
  */
 package poly.cafe.polycafe.ui;
 
-import poly.cafe.util.XDialog;
+import poly.cafe.polycafe.util.XDialog;
 
 /**
  *

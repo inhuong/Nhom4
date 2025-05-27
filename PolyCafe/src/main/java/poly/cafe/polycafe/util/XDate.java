@@ -1,4 +1,4 @@
-package poly.cafe.util;
+package poly.cafe.polycafe.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

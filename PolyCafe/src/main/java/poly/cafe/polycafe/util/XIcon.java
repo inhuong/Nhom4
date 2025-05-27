@@ -1,4 +1,4 @@
-package poly.cafe.util;
+package poly.cafe.polycafe.util;
 
 import java.awt.Image;
 import java.io.File;
@@ -16,7 +16,7 @@ public class XIcon {
      */
     public static ImageIcon getIcon(String path) {
         if(!path.contains("/") && !path.contains("\\")){ // resource name
-            return XIcon.getIcon("/poly/cafe/polycafe/icons/" + path);
+            return XIcon.getIcon("/poly/cafe/icons/" + path);
         }
         if(path.startsWith("/")){ // resource path
             return new ImageIcon(XIcon.class.getResource(path));
