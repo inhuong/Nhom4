@@ -1,6 +1,7 @@
 
 package poly.cafe.polycafe.ui;
 
+import poly.cafe.polycafe.util.XAuth;
 import poly.cafe.polycafe.util.XIcon;
 
 /**
@@ -18,12 +19,18 @@ public class PolyCafeJFrame extends javax.swing.JFrame implements PolyCafeContro
     }
 
     @Override
-public void init() {
- this.setIconImage(XIcon.getIcon("trump-small.png").getImage());
- this.setLocationRelativeTo(null);
- this.showWelcomeJDialog(this);
- this.showLoginJDialog(this);
-}
+    public void init() {
+        this.setIconImage(XIcon.getIcon("trump-small.png").getImage());
+        this.setLocationRelativeTo(null);
+        this.showWelcomeJDialog(this);
+        this.showLoginJDialog(this);
+
+        XIcon.setIcon(lblPhoto, "photos/" + XAuth.user.getPhoto());
+        lblFullname.setText(XAuth.user.getFullname());
+        if (!XAuth.user.isManager()) {
+            pnlCenter.remove(pnlManager);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
