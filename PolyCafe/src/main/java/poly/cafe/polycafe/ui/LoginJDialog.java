@@ -4,6 +4,12 @@
  */
 package poly.cafe.polycafe.ui;
 
+import poly.cafe.polycafe.dao.UserDAO;
+import poly.cafe.polycafe.dao.impl.UserDAOImpl;
+import poly.cafe.polycafe.entity.User;
+import poly.cafe.polycafe.util.XAuth;
+import poly.cafe.polycafe.util.XDialog;
+
 /**
  *
  * @author Admin
@@ -29,8 +35,8 @@ public class LoginJDialog extends javax.swing.JDialog {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -74,8 +80,8 @@ public class LoginJDialog extends javax.swing.JDialog {
                     .addComponent(jSeparator3)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addContainerGap())
         );
@@ -91,11 +97,11 @@ public class LoginJDialog extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -152,6 +158,27 @@ public class LoginJDialog extends javax.swing.JDialog {
         });
     }
 
+    public void open() {
+        this.setLocationRelativeTo(null);
+    }
+
+    public void login() {
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        UserDAO dao = new UserDAOImpl();
+        User user = dao.findById(username);
+        if (user == null) {
+            XDialog.alert("Sai tên đăng nhập!");
+        } else if (!password.equals(user.getPassword())) {
+            XDialog.alert("Sai mật khẩu đăng nhập!");
+        } else if (!user.isEnabled()) {
+            XDialog.alert("Tài khoản của bạn đang tạm dừng!");
+        } else {
+            XAuth.user = user; // duy trì user đăng nhập
+            this.dispose();
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -162,7 +189,7 @@ public class LoginJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

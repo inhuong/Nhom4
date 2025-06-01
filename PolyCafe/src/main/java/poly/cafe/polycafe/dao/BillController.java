@@ -4,17 +4,13 @@
  */
 package poly.cafe.polycafe.dao;
 
-import java.util.Date;
-import java.util.List;
 import poly.cafe.polycafe.entity.Bill;
 
 /**
  *
  * @author Admin
  */
-public interface BillDAO extends CrudDAO<Bill, Long>{
-    List<Bill> findByUsername(String username);
-    List<Bill> findByCardId(Integer cardId);
-    List<Bill> findByTimeRange(Date begin, Date end);
+public interface BillController extends CrudController<Bill>{
+    void fillBillDetails(); // tải và hiển thị chi tiết phiếu
+    void selectTimeRange(); // xử lý chọn khoảng thời gian trong cboTimeRanges
 }
-
